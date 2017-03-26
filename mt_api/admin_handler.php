@@ -20,7 +20,7 @@
 -->
 <?php
 	//Important includes
-	include("$_SERVER[DOCUMENT_ROOT]/MT_Kestrel/mt_api/config.php");
+	include("$_SERVER[DOCUMENT_ROOT]/MT-Kestrel/mt_api/config.php");
 	date_default_timezone_set('UTC');
 	
 	// Connect to our DB

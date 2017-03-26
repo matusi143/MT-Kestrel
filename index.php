@@ -19,8 +19,8 @@
 	see <http://www.gnu.org/licenses/>.
 -->
 <?php
-include("$_SERVER[DOCUMENT_ROOT]/MT_Kestrel/mt_api/config.php");
-include("$_SERVER[DOCUMENT_ROOT]/MT_Kestrel/mt_api/security_fucntions.php");
+include("$_SERVER[DOCUMENT_ROOT]/MT-Kestrel/mt_api/config.php");
+include("$_SERVER[DOCUMENT_ROOT]/MT-Kestrel/mt_api/security_fucntions.php");
 
 // Connect to our DB
 $mysqli = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);

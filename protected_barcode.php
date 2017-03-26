@@ -19,9 +19,9 @@
 	see <http://www.gnu.org/licenses/>.
 -->
 <?php
-include("$_SERVER[DOCUMENT_ROOT]/MT_Kestrel/mt_api/config.php");
-include("$_SERVER[DOCUMENT_ROOT]/MT_Kestrel/mt_api/security_fucntions.php");
-include("$_SERVER[DOCUMENT_ROOT]/MT_Kestrel/webparts/header.php");
+include("$_SERVER[DOCUMENT_ROOT]/MT-Kestrel/mt_api/config.php");
+include("$_SERVER[DOCUMENT_ROOT]/MT-Kestrel/mt_api/security_fucntions.php");
+include("$_SERVER[DOCUMENT_ROOT]/MT-Kestrel/webparts/header.php");
 
 sec_session_start();
 

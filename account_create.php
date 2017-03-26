@@ -19,10 +19,10 @@
 	see <http://www.gnu.org/licenses/>.
 -->
 <?php
-include_once("$_SERVER[DOCUMENT_ROOT]/MT_Kestrel/mt_api/account_create.inc.php");
-include_once("$_SERVER[DOCUMENT_ROOT]/MT_Kestrel/mt_api/config.php");
-include_once("$_SERVER[DOCUMENT_ROOT]/MT_Kestrel/mt_api/security_fucntions.php");
-include_once("$_SERVER[DOCUMENT_ROOT]/MT_Kestrel/webparts/header.php");
+include_once("$_SERVER[DOCUMENT_ROOT]/MT-Kestrel/mt_api/account_create.inc.php");
+include_once("$_SERVER[DOCUMENT_ROOT]/MT-Kestrel/mt_api/config.php");
+include_once("$_SERVER[DOCUMENT_ROOT]/MT-Kestrel/mt_api/security_fucntions.php");
+include_once("$_SERVER[DOCUMENT_ROOT]/MT-Kestrel/webparts/header.php");
 ?>
 
 	  <title>Secure Login: Registration Form</title>

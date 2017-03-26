@@ -19,7 +19,7 @@
 	see <http://www.gnu.org/licenses/>.
 -->
 <?php
-include("$_SERVER[DOCUMENT_ROOT]/MT_Kestrel/mt_api/config.php");
+include("$_SERVER[DOCUMENT_ROOT]/MT-Kestrel/mt_api/config.php");
 
 
 // Connect to our DB

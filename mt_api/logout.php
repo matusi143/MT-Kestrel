@@ -19,7 +19,7 @@
 	see <http://www.gnu.org/licenses/>.
 -->
 <?php
-include("$_SERVER[DOCUMENT_ROOT]/MT_Kestrel/mt_api/security_fucntions.php");
+include("$_SERVER[DOCUMENT_ROOT]/MT-Kestrel/mt_api/security_fucntions.php");
 sec_session_start();
  
 // Unset all session values 
