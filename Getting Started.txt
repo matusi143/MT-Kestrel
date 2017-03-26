@@ -1,0 +1,28 @@
+** Getting Started with MT Salepoint **
+** Copyright 2016-2017 Musto Technologies LLC **
+** Distrubuted under GPLv3 **
+
+If you already have a web server running with a SQL server and PHP 7+ feel free to skip to step 2.
+
+1) Install a local development system, for example WAMP. (http://www.wampserver.com/en/)
+	It is reccomended you use the 32bit version of WAMP 3.0.6 or higher.
+	The high level configuration steps are:
+		a)Accept license agreement and continue with the install.
+		b)When prompted, select the default browser and notepad (Chrome and Notepad ++ are reccomended)
+		c)Run WAMP, it will autoconfigure itself to use localhost as the default domain.
+		d)Clone or Copy the content of the github project MT Kestrel to the www directory of WAMP (eg 'C:\wamp\www\MT-Kestrel')
+		e)Navigate your default browser to http://localhost/MT-Kestrel/phpversion.php
+		f)If current PHP version is not >= 7.0.3 left click on the WAMP icon in the taskbar, select PHP -> version
+			then select a version >= 7.0.3.
+		g)Reload phpversion.php in your browser, you should now see something like 'Current PHP version: 7.0.10'.
+2) Configure SQL (directions are for WAMP, but should be similar with all other SQL systems)
+	a)Navigate in your browser to localhost
+	b)Click on phpmyadmin
+	c)Login to phpmyadmin, by default the username is root with a blank password
+	d)Create a new database called 'Kestrel' (or anything you want, you can change it in the config)
+	e)Select import and import from file salespoint_schema.sql found in the MT-Kestrel root directory.
+	f)Verify login_attempts, members, product and txn tables are created.
+	g)In phpmyadmin, go to user accounts and create a new account called 'web_frontend' and 
+		set he password you choose to set in the projects config.php for the user (default: Password_1)
+		grant SELECT, INSERT, and UPDATE to web_frontend.
+	
