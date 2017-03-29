@@ -3,7 +3,7 @@ An open source point of sale and inventory management system.
 
 Read Getting Started.txt for information on how to configure this on your own system.
 
-Roadmap information is available at MT-Kestrel/roadmap.txt
+Roadmap information is available at https://github.com/matusi143/MT-Kestrel/wiki
 
 Copyright 2016, 2017 Musto Technologies LLC
 -- GPLv3 License --
