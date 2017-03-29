@@ -5,7 +5,7 @@ Read Getting Started.txt for information on how to configure this on your own sy
 
 Roadmap information is available at MT-Kestrel/roadmap.txt
 
-Copyright 2016, 2017 Musto Technologies LLC http://www.mustotechnologies.com
+Copyright 2016, 2017 Musto Technologies LLC
 -- GPLv3 License --
 This file is part of MT Kestrel.
 
