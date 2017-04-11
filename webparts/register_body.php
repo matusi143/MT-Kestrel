@@ -18,6 +18,31 @@
     along with MT Kestrel as the COPYING.txt file.  If not, 
 	see <http://www.gnu.org/licenses/>.
 -->
+<div id="left_col">
+<form name="register_keypad" >
+<input type="button" class="button button_keypad" value="@/for" onClick="document.register_keypad.ans.value+='@'">
+<input type="button" class="button button_keypad" value="." onClick="document.register_keypad.ans.value+='.'">
+<input type="reset" class="button button_keypad" value="Clear">
+<br>
+<input type="button" class="button button_keypad" value="7" onClick="document.register_keypad.ans.value+='7'">
+<input type="button" class="button button_keypad" value="8" onClick="document.register_keypad.ans.value+='8'">
+<input type="button" class="button button_keypad" value="9" onClick="document.register_keypad.ans.value+='9'">
+<br>
+<input type="button" class="button button_keypad" value="4" onClick="document.register_keypad.ans.value+='4'">
+<input type="button" class="button button_keypad" value="5" onClick="document.register_keypad.ans.value+='5'">
+<input type="button" class="button button_keypad" value="6" onClick="document.register_keypad.ans.value+='6'">
+<br>
+<input type="button" class="button button_keypad" value="1" onClick="document.register_keypad.ans.value+='1'">
+<input type="button" class="button button_keypad" value="2" onClick="document.register_keypad.ans.value+='2'">
+<input type="button" class="button button_keypad" value="3" onClick="document.register_keypad.ans.value+='3'">
+<br>
+<input type="button" class="button button_keypad" value="0" onClick="document.register_keypad.ans.value+='0'">
+<input type="button" class="button button_keypad" value="00" onClick="document.register_keypad.ans.value+='00'">
+<input type="button" class="button button_keypad" value="=" onClick="document.register_keypad.ans.value=eval(document.register_keypad.ans.value)">
+<br>Solution is <input type="textfield" name="ans" value="">
+</form>
+</div>
+<div id="right_col">
 <div id="register">
   <div id="ticket">
     <h1>Thank You!</h1>
@@ -43,6 +68,7 @@
   <form id="entry">
     <input id="newEntry" autofocus placeholder="Scan or type UPC here...">
   </form>
+</div>
 </div>
 
 <script src="js/jquery-3.1.1.min.js"></script>  
