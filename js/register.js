@@ -24,6 +24,7 @@ var subtotal = 0;
 var tax = 0;
 var tax_rate1 = 0.0;
 var tax_rate2 = 0.0;
+var qty = 1;
 
 document.getElementById('entry').onsubmit = enter;
 document.getElementById('register_keypad').onsubmit = keypad_command;
@@ -37,7 +38,13 @@ function enter() {
          {
 			 // Read in and process any keypad commands (QTY# DPT# CLK# PRC$ DSC%)
 			 var keypad_array = keypad_command.split(" ");
-			 
+			 document.getElementById('command_queue').value = keypad_array[0];
+			 var patt = new RegExp("QTY#");
+			 if (patt.test(keypad_array[1]))
+			 {
+				 var qty_array = keypad_array[1].split("#");
+				 var qty = qty_array[1];
+			 }
 			 
 			 // Split UPC record into appropriate fields
 			 var record_array = data.split(" => ");
@@ -56,7 +63,7 @@ function enter() {
 					var dept_name = record_array2[4].split("  ")[0];
 					currency = currencyFormat(price);
 					tax += price * tax_rate1;
-					subtotal += price;
+					subtotal += price * qty;
 					total += price * (1 + tax_rate1);
 					document.getElementById('entries').innerHTML += '<tr><th>' + name + '</th><th>' + currency + '</th></tr><tr><th>' + desc +  '</th><th>' + dept_name + '</th></tr>';
 					document.getElementById('subtotal').innerHTML = currencyFormat(subtotal);
