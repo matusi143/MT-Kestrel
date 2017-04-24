@@ -25,7 +25,7 @@
 define('DB_USERNAME', 'web_frontend');
 define('DB_PASSWORD', 'Password_1');
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'kestrel');
+define('DB_NAME', 'kestrel_20170423');
 
 /**
  * Security and roles

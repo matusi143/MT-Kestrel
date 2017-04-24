@@ -26,18 +26,27 @@ var tax_rate1 = 0.0;
 var tax_rate2 = 0.0;
 
 document.getElementById('entry').onsubmit = enter;
+document.getElementById('register_keypad').onsubmit = keypad_command;
 
 function enter() {
   var entry = document.getElementById('newEntry').value;
+  var keypad_command = document.getElementById('command_queue').value;
   
   var posting = $.post( "mt_api/upc_lookup.php", {UPC: entry, LOCATION: '1'});
   posting.done(function( data )
          {
+			 // Read in and process any keypad commands (QTY# DPT# CLK# PRC$ DSC%)
+			 var keypad_array = keypad_command.split(" ");
+			 
+			 
+			 // Split UPC record into appropriate fields
 			 var record_array = data.split(" => ");
 			 var name = record_array[2].split("  ")[0];
 			 var desc = record_array[3].split("  ")[0];
 			 var price = parseFloat(record_array[4].split(" ")[0]);
 			 var dept_num = record_array[8].split(" ")[0];
+			 
+			 // Look up department number to get tax information
 			 var posting2 = $.post( "mt_api/dept_lookup.php", {DEPT_NUM: dept_num, LOCATION: '1'});
 			 posting2.done(function( data )
 				{
@@ -56,6 +65,7 @@ function enter() {
 					document.getElementById('newEntry').value = '';
 				});
 		 });
+		 document.getElementById('newEntry').value = 'UPC NOT IN SYSTEM!';
   return false;
 }
 

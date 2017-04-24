@@ -137,7 +137,8 @@ footer {
     background-color: #4CAF50; /* Green */
     border: none;
     color: white;
-    padding: 24px 36px;
+	width: 15%;
+    padding: 24px 30px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -152,14 +153,14 @@ footer {
     color: white;
 }
 #wrap {
-   width:800px;
+   width:100%;
    margin:0 auto;
 }
 #left_col {
    float:left;
-   width:400px;
+   width:50%;
 }
 #right_col {
    float:right;
-   width:400px;
+   width:50%;
 }

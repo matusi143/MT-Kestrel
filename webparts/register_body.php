@@ -20,26 +20,31 @@
 -->
 <div id="left_col">
 <form name="register_keypad" >
-<input type="button" class="button button_keypad" value="@/for" onClick="document.register_keypad.ans.value+='@'">
-<input type="button" class="button button_keypad" value="." onClick="document.register_keypad.ans.value+='.'">
+<input type="button" class="button button_keypad" value="QTY" onClick="document.register_keypad.command_queue.value+=' QTY#'">
+<input type="button" class="button button_keypad" value="." onClick="document.register_keypad.command_queue.value+='.'">
 <input type="reset" class="button button_keypad" value="Clear">
+<input type="button" class="button button_keypad" value="Dept #" onClick="document.register_keypad.command_queue.value+=' DPT#'">
 <br>
-<input type="button" class="button button_keypad" value="7" onClick="document.register_keypad.ans.value+='7'">
-<input type="button" class="button button_keypad" value="8" onClick="document.register_keypad.ans.value+='8'">
-<input type="button" class="button button_keypad" value="9" onClick="document.register_keypad.ans.value+='9'">
+<input type="button" class="button button_keypad" value="7" onClick="document.register_keypad.command_queue.value+='7'">
+<input type="button" class="button button_keypad" value="8" onClick="document.register_keypad.command_queue.value+='8'">
+<input type="button" class="button button_keypad" value="9" onClick="document.register_keypad.command_queue.value+='9'">
+<input type="button" class="button button_keypad" value="Clerk #" onClick="document.register_keypad.command_queue.value+=' CLK#'">
 <br>
-<input type="button" class="button button_keypad" value="4" onClick="document.register_keypad.ans.value+='4'">
-<input type="button" class="button button_keypad" value="5" onClick="document.register_keypad.ans.value+='5'">
-<input type="button" class="button button_keypad" value="6" onClick="document.register_keypad.ans.value+='6'">
+<input type="button" class="button button_keypad" value="4" onClick="document.register_keypad.command_queue.value+='4'">
+<input type="button" class="button button_keypad" value="5" onClick="document.register_keypad.command_queue.value+='5'">
+<input type="button" class="button button_keypad" value="6" onClick="document.register_keypad.command_queue.value+='6'">
+<input type="button" class="button button_keypad" value="Price $" onClick="document.register_keypad.command_queue.value+=' PRC$'"> 
 <br>
-<input type="button" class="button button_keypad" value="1" onClick="document.register_keypad.ans.value+='1'">
-<input type="button" class="button button_keypad" value="2" onClick="document.register_keypad.ans.value+='2'">
-<input type="button" class="button button_keypad" value="3" onClick="document.register_keypad.ans.value+='3'">
+<input type="button" class="button button_keypad" value="1" onClick="document.register_keypad.command_queue.value+='1'">
+<input type="button" class="button button_keypad" value="2" onClick="document.register_keypad.command_queue.value+='2'">
+<input type="button" class="button button_keypad" value="3" onClick="document.register_keypad.command_queue.value+='3'">
+<input type="button" class="button button_keypad" value="Disc %" onClick="document.register_keypad.command_queue.value+=' DSC%'">
 <br>
-<input type="button" class="button button_keypad" value="0" onClick="document.register_keypad.ans.value+='0'">
-<input type="button" class="button button_keypad" value="00" onClick="document.register_keypad.ans.value+='00'">
-<input type="button" class="button button_keypad" value="=" onClick="document.register_keypad.ans.value=eval(document.register_keypad.ans.value)">
-<br>Solution is <input type="textfield" name="ans" value="">
+<input type="button" class="button button_keypad" value="0" onClick="document.register_keypad.command_queue.value+='0'">
+<input type="button" class="button button_keypad" value="00" onClick="document.register_keypad.command_queue.value+='00'">
+<input type="button" class="button button_keypad" value="." onClick="document.register_keypad.command_queue.value+='.'">
+<input type="button" class="button button_keypad" value="Enter" onClick="Submit">
+<br>Command Queue <input type="textfield" id ="command_queue" name="command_queue" value="" size="40">
 </form>
 </div>
 <div id="right_col">

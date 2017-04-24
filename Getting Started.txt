@@ -20,7 +20,7 @@ If you already have a web server running with a SQL server and PHP 7+ feel free 
 	b)Click on phpmyadmin
 	c)Login to phpmyadmin, by default the username is root with a blank password
 	d)Create a new database called 'Kestrel' (or anything you want, you can change it in the config)
-	e)Select import and import from file salespoint_schema.sql found in the MT-Kestrel root directory.
+	e)Select import and import from file kestrel_schema.sql found in the MT-Kestrel root directory.
 	f)Verify there are no errors when tables and indexes are created.
 	g)In phpmyadmin, go to user accounts and create a new account called 'web_frontend' and 
 		set the password you choose to also set in the project's mt_api/config.php for the user (default: Password_1)
