@@ -25,9 +25,12 @@ var tax = 0;
 var tax_rate1 = 0.0;
 var tax_rate2 = 0.0;
 var qty = 1;
+var dpt = 0;
+var clk = 0;
+var prc = 0;
+var dsc = 0; 
 
 document.getElementById('entry').onsubmit = enter;
-document.getElementById('register_keypad').onsubmit = keypad_command;
 
 function enter() {
   var entry = document.getElementById('newEntry').value;
@@ -38,14 +41,50 @@ function enter() {
          {
 			 // Read in and process any keypad commands (QTY# DPT# CLK# PRC$ DSC%)
 			 var keypad_array = keypad_command.split(" ");
-			 document.getElementById('command_queue').value = keypad_array[0];
-			 var patt = new RegExp("QTY#");
-			 if (patt.test(keypad_array[1]))
+			 var arrayLength = keypad_array.length;
+			 for (var i = 0; i < arrayLength; i++)
 			 {
-				 var qty_array = keypad_array[1].split("#");
-				 var qty = qty_array[1];
+				//Check for QTY (quantity) values
+				var patt = new RegExp("QTY#");
+				if (patt.test(keypad_array[i]))
+				{
+					var qty_array = keypad_array[i].split("#");
+					qty = qty_array[1];
+				}
+				
+				//Check for DSC% (discount) values
+				var patt = new RegExp("DSC%");
+				if (patt.test(keypad_array[i]))
+				{
+					var dsc_array = keypad_array[i].split("%");
+					dsc = dsc_array[1];
+				}
+				
+				//Check for DPT# (department) values
+				var patt = new RegExp("DPT#");
+				if (patt.test(keypad_array[i]))
+				{
+					var dpt_array = keypad_array[i].split("#");
+					dpt = dpt_array[1];
+				}
+				
+				//Check for CLK# (clerk) values
+				var patt = new RegExp("CLK#");
+				if (patt.test(keypad_array[i]))
+				{
+					var clk_array = keypad_array[i].split("#");
+					clk = clk_array[1];
+				}
+				
+				//Check for PRC$ (price) values
+				var patt = new RegExp("PRC$");
+				if (patt.test(keypad_array[i]))
+				{
+					var prc_array = keypad_array[i].split("$");
+					prc = prc_array[1];
+				}
 			 }
-			 
+
 			 // Split UPC record into appropriate fields
 			 var record_array = data.split(" => ");
 			 var name = record_array[2].split("  ")[0];
@@ -64,16 +103,30 @@ function enter() {
 					currency = currencyFormat(price);
 					tax += price * tax_rate1;
 					subtotal += price * qty;
-					total += price * (1 + tax_rate1);
-					document.getElementById('entries').innerHTML += '<tr><th>' + name + '</th><th>' + currency + '</th></tr><tr><th>' + desc +  '</th><th>' + dept_name + '</th></tr>';
+					total += price * (1 + tax_rate1) * qty;
+					document.getElementById('entries').innerHTML += '<tr><th>' + name + '  ' + qty + '@</th><th>' + currency + '</th></tr><tr><th>' + desc +  '</th><th>' + dept_name + '</th></tr>';
 					document.getElementById('subtotal').innerHTML = currencyFormat(subtotal);
 					document.getElementById('total').innerHTML = currencyFormat(total);
 					document.getElementById('tax').innerHTML = currencyFormat(tax);
 					document.getElementById('newEntry').value = '';
+					
+					// reset possible command queue inputs
+					qty = 1;
+					dpt = 0;
+					clk = 0;
+					prc = 0;
+					dsc = 0; 
+					document.getElementById('command_queue').value = '';
 				});
 		 });
 		 document.getElementById('newEntry').value = 'UPC NOT IN SYSTEM!';
   return false;
+}
+
+function checkout() {
+	var keypad_command = document.getElementById('command_queue').value;
+	total -= keypad_command;
+	document.getElementById('total').innerHTML = currencyFormat(total);
 }
 
 function currencyFormat(number) {
