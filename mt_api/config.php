@@ -40,6 +40,11 @@ define("SECURE", FALSE);    // FOR DEVELOPMENT ONLY!!!!
 define('UTC_OFFSET', '-5 hours');
 
 /**
+ * Logging and Debugging
+ */
+ define("debug_mode", 1);
+ 
+/**
  * URL definitions
  */
 define('ADD_ITEM_URL', 'protected_add_item.php');

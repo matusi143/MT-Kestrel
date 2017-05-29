@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 24, 2017 at 02:54 AM
+-- Generation Time: May 29, 2017 at 05:02 PM
 -- Server version: 5.7.14
 -- PHP Version: 7.0.10
 
@@ -73,7 +73,7 @@ CREATE TABLE `loss` (
   `QTY_DELTA` int(11) NOT NULL,
   `CLERK` varchar(50) NOT NULL,
   `LOCATION` tinyint(4) NOT NULL,
-  `RETAIL_LOSS` decimal(7,2) NOT NULL,
+  `RETAIL_LOSS` decimal(8,2) NOT NULL,
   `NOTE` text NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -101,7 +101,7 @@ CREATE TABLE `product` (
   `UPC` varchar(15) NOT NULL,
   `NAME` varchar(28) NOT NULL,
   `DESC` varchar(128) NOT NULL,
-  `PRICE` decimal(7,2) NOT NULL,
+  `PRICE` decimal(8,2) NOT NULL,
   `LOCATION` tinyint(3) UNSIGNED NOT NULL,
   `QTY` smallint(6) NOT NULL,
   `ACTIVE` varchar(1) NOT NULL,
@@ -112,19 +112,34 @@ CREATE TABLE `product` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `register`
+--
+
+CREATE TABLE `register` (
+  `pri_key` int(11) NOT NULL,
+  `txn_time` timestamp NOT NULL,
+  `register_id` smallint(6) NOT NULL,
+  `clerk_id` varchar(50) NOT NULL,
+  `txn_type` varchar(6) NOT NULL,
+  `amount` decimal(8,2) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `txn`
 --
 
 CREATE TABLE `txn` (
-  `UPC` varchar(13) NOT NULL,
+  `UPC` varchar(15) NOT NULL,
   `TYPE` varchar(6) NOT NULL,
-  `COST` decimal(5,2) NOT NULL,
+  `COST` decimal(8,2) NOT NULL,
   `QTY` smallint(6) NOT NULL,
   `TXN_TIME` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `CLERK` varchar(50) NOT NULL,
   `LOCATION` tinyint(3) UNSIGNED NOT NULL,
   `WHSLER` varchar(50) NOT NULL,
-  `PRICE` decimal(5,2) NOT NULL,
+  `PRICE` decimal(8,2) NOT NULL,
   `TAXABLE` varchar(3) NOT NULL,
   `DEPT` tinyint(3) UNSIGNED NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -178,6 +193,13 @@ ALTER TABLE `product`
   ADD KEY `LOCATION` (`LOCATION`);
 
 --
+-- Indexes for table `register`
+--
+ALTER TABLE `register`
+  ADD PRIMARY KEY (`pri_key`),
+  ADD KEY `txn_time` (`txn_time`);
+
+--
 -- Indexes for table `txn`
 --
 ALTER TABLE `txn`
@@ -200,6 +222,11 @@ ALTER TABLE `departments`
 --
 ALTER TABLE `locations`
   MODIFY `location_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `register`
+--
+ALTER TABLE `register`
+  MODIFY `pri_key` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

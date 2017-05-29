@@ -36,7 +36,15 @@ function enter() {
   var entry = document.getElementById('newEntry').value;
   var keypad_command = document.getElementById('command_queue').value;
   
-  var posting = $.post( "mt_api/upc_lookup.php", {UPC: entry, LOCATION: '1'});
+  // if entry is blank (i.e. there is no UPC value to look up need to use system UPC 99999999999999 and rely on manual input logic)
+  if (entry){
+	  var posting = $.post( "mt_api/upc_lookup.php", {UPC: entry, LOCATION: '1'});
+  }
+  else{
+	  var entry = 99999999999999;
+	  var posting = $.post( "mt_api/upc_lookup.php", {UPC: entry, LOCATION: '1'});
+  }
+    
   posting.done(function( data )
          {
 			 // Read in and process any keypad commands (QTY# DPT# CLK# PRC$ DSC%)
@@ -110,6 +118,22 @@ function enter() {
 					document.getElementById('tax').innerHTML = currencyFormat(tax);
 					document.getElementById('newEntry').value = '';
 					
+					// prepare transaction data for local storage
+					var current_item = entry + "@@@" + qty + "@@@" + name + "@@@" + price + "@@@" + desc + "@@@" + dept_num + "@@@" + dept_name
+										
+					// record information to session storage register
+					if (sessionStorage.register_session) {
+						SaveDataToSessionStorage(current_item);
+					} else {
+						sessionStorage.setItem('register_session', JSON.stringify(current_item));
+					}
+					
+					// debugger
+					//if (debug_mode >= 1){
+						document.getElementById("product_qty").innerHTML = "Data: " + JSON.parse(sessionStorage.getItem('register_session')) + " -- end.";
+					//}
+					
+					
 					// reset possible command queue inputs
 					qty = 1;
 					dpt = 0;
@@ -134,4 +158,12 @@ function currencyFormat(number) {
   currency = currency.toFixed(2);
   currency = '$' + currency;
   return currency;
+}
+
+function SaveDataToSessionStorage(current_item)
+{
+    var working_data = [];
+    working_data = JSON.parse(sessionStorage.getItem('register_session'));
+    working_data.push(JSON.stringify(current_item));
+    sessionStorage.setItem('register_session', JSON.stringify(working_data));
 }
