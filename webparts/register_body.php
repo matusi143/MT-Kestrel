@@ -33,17 +33,17 @@
 <input type="button" class="button button_keypad" value="4" onClick="document.register_keypad.command_queue.value+='4'">
 <input type="button" class="button button_keypad" value="5" onClick="document.register_keypad.command_queue.value+='5'">
 <input type="button" class="button button_keypad" value="6" onClick="document.register_keypad.command_queue.value+='6'">
-<input type="button" class="button_exe button_keypad" value="Check" onClick="Submit">
+<input type="button" class="button_exe button_keypad" value="Check" id="Check" onClick="checkout(this)">
 <br>
 <input type="button" class="button button_keypad" value="1" onClick="document.register_keypad.command_queue.value+='1'">
 <input type="button" class="button button_keypad" value="2" onClick="document.register_keypad.command_queue.value+='2'">
 <input type="button" class="button button_keypad" value="3" onClick="document.register_keypad.command_queue.value+='3'">
-<input type="button" class="button_exe button_keypad" value="Credit" onClick="Submit">
+<input type="button" class="button_exe button_keypad" value="Credit" id="Credit" onClick="checkout(this)">
 <br>
 <input type="button" class="button button_keypad" value="0" onClick="document.register_keypad.command_queue.value+='0'">
 <input type="button" class="button button_keypad" value="." onClick="document.register_keypad.command_queue.value+='.'">
 <input type="reset" class="button button_keypad" value="Clear">
-<input type="button" class="button_exe button_keypad" value="Cash" onClick="checkout()">
+<input type="button" class="button_exe button_keypad" value="Cash" id="Cash" onClick="checkout(this)">
 <br>Command Queue <input type="textfield" id ="command_queue" name="command_queue" value="" size="40">
 </form>
 </div>

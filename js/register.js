@@ -119,12 +119,13 @@ function enter() {
 					document.getElementById('newEntry').value = '';
 					
 					// prepare transaction data for local storage
-					var current_item = entry + "@@@" + qty + "@@@" + name + "@@@" + price + "@@@" + desc + "@@@" + dept_num + "@@@" + dept_name
+					var current_item = [entry + "@@@" + qty + "@@@" + name + "@@@" + price + "@@@" + desc + "@@@" + dept_num + "@@@" + dept_name];
 										
 					// record information to session storage register
 					if (sessionStorage.register_session) {
 						SaveDataToSessionStorage(current_item);
 					} else {
+						current_item.push(JSON.parse(sessionStorage.getItem('register_session')));
 						sessionStorage.setItem('register_session', JSON.stringify(current_item));
 					}
 					
@@ -147,10 +148,37 @@ function enter() {
   return false;
 }
 
-function checkout() {
+// make sure register body calls are correct with payment method
+function checkout(el) {
 	var keypad_command = document.getElementById('command_queue').value;
-	total -= keypad_command;
-	document.getElementById('total').innerHTML = currencyFormat(total);
+	var payment_method = $(el).attr('id');
+	
+	// confirm keypad_command is only a dollar value and does not contain other values if so, clear input and alert.
+	if(isNaN(keypad_command)){
+		document.getElementById('command_queue').value = '';
+		alert(keypad_command + " is not a number");
+	}
+	else{
+		document.getElementById('entries').innerHTML += '<tr><th>' + payment_method + '</th><th>-' + currencyFormat(keypad_command) + '</th></tr>';
+		var payment_amount = keypad_command * -1.0;
+		total += payment_amount;
+		document.getElementById('total').innerHTML = currencyFormat(total);
+		
+		if (total >= 0){
+			document.getElementById('total').innerHTML = currencyFormat(total);
+		}
+		else if (total <= 0){
+			// print change due
+			document.getElementById('entries').innerHTML += '<tr><th> Change Paid: </th><th>-' + currencyFormat(total) + '</th></tr>';
+			var total = 0;
+			document.getElementById('total').innerHTML = currencyFormat(total);
+			// submit data to register table and reduce inventory product and trx tables
+			// print receipt
+		}
+		else {
+			// do nothing
+		}
+	}	
 }
 
 function currencyFormat(number) {
@@ -160,10 +188,10 @@ function currencyFormat(number) {
   return currency;
 }
 
-function SaveDataToSessionStorage(current_item)
+function SaveDataToSessionStorage(new_data)
 {
     var working_data = [];
     working_data = JSON.parse(sessionStorage.getItem('register_session'));
-    working_data.push(JSON.stringify(current_item));
+    working_data.push(new_data);
     sessionStorage.setItem('register_session', JSON.stringify(working_data));
 }
