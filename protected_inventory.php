@@ -29,7 +29,7 @@ sec_session_start();
 $mysqli = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
 if(login_check($mysqli) == true) {
-    echo '<title>Inventory- MT Salespoint</title>';
+    echo '<title>Inventory - MT Salespoint</title>';
 	echo '</head>';
 	echo '<body>';
 	include("webparts/navigation.php");
