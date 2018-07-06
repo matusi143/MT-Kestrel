@@ -25,10 +25,14 @@ include("$_SERVER[DOCUMENT_ROOT]/MT-Kestrel/webparts/header.php");
 
 sec_session_start();
 
-// Connect to our DB
-$mysqli = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
+// $connect to our DB
+$connect = mysqli_connect($db_host_name, $db_user_name, $db_password, $database);
 
-if(login_check($mysqli) == true) {
+if (mysqli_connect_errno()) {
+    die('<p>Failed to connect to MySQL, send this message to support: '.mysqli_connect_error().'</p>');
+} 
+
+if(login_check($connect) == true) {
 	echo '<title>Register - MT Salespoint</title>';
 	echo '</head>';
 	echo '<body>';

@@ -22,10 +22,10 @@
 /**
  * Database configuration
  */
-define('DB_USERNAME', 'web_frontend');
-define('DB_PASSWORD', 'Password_1');
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'kestrel_20170423');
+$db_host_name = 'localhost';
+$database = 'kestrel_20170423';
+$db_user_name = 'web_frontend';
+$db_password = 'Password_1';
 
 /**
  * Security and roles

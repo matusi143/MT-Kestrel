@@ -26,30 +26,24 @@
 	$LOCAL_PRODUCT_TABLE = PRODUCT_TABLE;
 	$LOCAL_TXN_TABLE = TXN_TABLE;
 		
-    // Connect to our DB
-	$mysqli = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
+    // $connect to our DB
+	$connect = mysqli_connect($db_host_name, $db_user_name, $db_password, $database);
 
-    // Check connection
-	if ($mysqli->connect_errno) {
-		echo "Error: Failed to make a MySQL connection, here is why: \n";
-		echo "Errno: " . $mysqli->connect_errno . "\n";
-		echo "Error: " . $mysqli->connect_error . "\n";
-		
-		// You might want to show them something nice, but we will simply exit
-		exit;
-	}
+	if (mysqli_connect_errno()) {
+    die('<p>Failed to connect to MySQL, send this message to support: '.mysqli_connect_error().'</p>');
+} 
 	
 	// Check to see no entry for that UPC at that location already exists for this addition
 	$sql = "SELECT * FROM `departments`;";
-	if (!$result = $mysqli->query($sql)) {
+	if (!$result = $connect->query($sql)) {
     // Oh no! The query failed. 
     echo "Sorry, the website is experiencing problems.";
 	    // Again, do not do this on a public site, but we'll show you how
     // to get the error information
     echo "Error: Our query failed to execute and here is why: \n";
     echo "Query: " . $sql . "\n";
-    echo "Errno: " . $mysqli->errno . "\n";
-    echo "Error: " . $mysqli->error . "\n";
+    echo "Errno: " . $connect->errno . "\n";
+    echo "Error: " . $connect->error . "\n";
     exit;
 	}
 	
@@ -125,6 +119,6 @@
 		print_r($total);
 	}
 	// The script will automatically free the result and close the MySQL
-	// connection when it exits, but let's just do it anyways
+	// $connection when it exits, but let's just do it anyways
 	$mysqli->close();
 ?>

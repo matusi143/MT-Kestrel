@@ -23,18 +23,12 @@
 	include("$_SERVER[DOCUMENT_ROOT]/MT-Kestrel/mt_api/config.php");
 	date_default_timezone_set('UTC');
 	
-	// Connect to our DB
-	$mysqli = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
+	// $connect to our DB
+	$connect = mysqli_connect($db_host_name, $db_user_name, $db_password, $database);
 
-    // Check connection
-	if ($mysqli->connect_errno) {
-		echo "Error: Failed to make a MySQL connection, here is why: \n";
-		echo "Errno: " . $mysqli->connect_errno . "\n";
-		echo "Error: " . $mysqli->connect_error . "\n";
-		
-		// You might want to show them something nice, but we will simply exit
-		exit;
-	}
+	if (mysqli_connect_errno()) {
+		die('<p>Failed to connect to MySQL, send this message to support: '.mysqli_connect_error().'</p>');
+	} 
 	
 	// Run query to get the field that is going to be updated.
 	//$sql = "SELECT * FROM `departments` WHERE `LOCATION`=$LOCATION";

@@ -46,19 +46,15 @@ function sec_session_start() {
     session_start();            // Start the PHP session 
     session_regenerate_id(true);    // regenerated the session, delete the old one. 
 }
-function login($email, $password, $mysqli) {
+function login($email, $password, $connect) {
 	
-	// Check connection
-	if ($mysqli->connect_errno) {
-		echo "Error: Failed to make a MySQL connection, here is why: \n";
-		echo "Errno: " . $mysqli->connect_errno . "\n";
-		echo "Error: " . $mysqli->connect_error . "\n";
-		
-		// You might want to show them something nice, but we will simply exit
-		exit;
-	}
+	// Check $connection
+	if (mysqli_connect_errno()) {
+    die('<p>Failed to connect to MySQL: '.mysqli_connect_error().'</p>');
+	} 
+	
     // Using prepared statements means that SQL injection is not possible. 
-    if ($stmt = $mysqli->prepare("SELECT `USERNAME`, `EMAIL`, `PASSWORD`, `ROLE`, `MODULES` FROM `members` WHERE `EMAIL` = ?")) {
+    if ($stmt = $connect->prepare("SELECT `USERNAME`, `EMAIL`, `PASSWORD`, `ROLE`, `MODULES` FROM `members` WHERE `EMAIL` = ?")) {
         $stmt->bind_param('s', $email);  // Bind "$email" to parameter.
         $stmt->execute();    // Execute the prepared query.
         $stmt->store_result();
@@ -71,7 +67,7 @@ function login($email, $password, $mysqli) {
             // If the user exists we check if the account is locked
             // from too many login attempts 
 			
-			if (checkbrute($username, $mysqli) == true) {
+			if (checkbrute($username, $connect) == true) {
                 // Account is locked 
                 echo "<br><br><h2>Account is locked due to too many password attempts, try again in 5 minutes or contact support</h2><br>";
                 return false;
@@ -118,17 +114,17 @@ function login($email, $password, $mysqli) {
         }
     }
 	if (false===$stmt){
-		die('prepare() failed: ' . htmlspecialchars($mysqli->error));
+		die('prepare() failed: ' . htmlspecialchars($connect->error));
 	}
 }
-function checkbrute($username, $mysqli) {
+function checkbrute($username, $connect) {
     // Get timestamp of current time 
     $now = time();
  
     // All login attempts are counted from the past 5 minutes. 
     $valid_attempts = $now - (5 * 60);
  
-    if ($stmt = $mysqli->prepare("SELECT `TIME` FROM `LOGIN_ATTEMPTS` WHERE `USERNAME` = ? AND `TIME` > '$valid_attempts'")) {
+    if ($stmt = $connect->prepare("SELECT `TIME` FROM `LOGIN_ATTEMPTS` WHERE `USERNAME` = ? AND `TIME` > '$valid_attempts'")) {
         $stmt->bind_param('i', $username);
  
         // Execute the prepared query. 
@@ -143,7 +139,7 @@ function checkbrute($username, $mysqli) {
         }
     }
 }
-function login_check($mysqli) {
+function login_check($connect) {
     // Check if all session variables are set 
     if (isset($_SESSION['user_email'], $_SESSION['username'], $_SESSION['user_role'], $_SESSION['login_string'])) {
 		$user_role = $_SESSION['user_role'];
@@ -154,7 +150,7 @@ function login_check($mysqli) {
 		// Get the user-agent string of the user.
         $user_browser = $_SERVER['HTTP_USER_AGENT'];
  
-        if ($stmt = $mysqli->prepare("SELECT `PASSWORD` FROM `members` WHERE `EMAIL` = ?")) {
+        if ($stmt = $connect->prepare("SELECT `PASSWORD` FROM `members` WHERE `EMAIL` = ?")) {
             // Bind "$username" to parameter. 
             $stmt->bind_param('s', $user_email);
             $stmt->execute();   // Execute the prepared query.

@@ -22,8 +22,12 @@
 include("$_SERVER[DOCUMENT_ROOT]/MT-Kestrel/mt_api/config.php");
 include("$_SERVER[DOCUMENT_ROOT]/MT-Kestrel/mt_api/security_fucntions.php");
 
-// Connect to our DB
-	$mysqli = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
+// $connect to our DB
+$connect = mysqli_connect($db_host_name, $db_user_name, $db_password, $database);
+
+if (mysqli_connect_errno()) {
+    die('<p>Failed to connect to MySQL, send this message to support: '.mysqli_connect_error().'</p>');
+} 
 
 sec_session_start(); // Our custom secure way of starting a PHP session.
  
@@ -31,7 +35,7 @@ if (isset($_POST['email'], $_POST['p'])) {
     $email = $_POST['email'];
     $password = $_POST['p']; // The hashed password.
  
-    if (login($email, $password, $mysqli) == true) {
+    if (login($email, $password, $connect) == true) {
         // Login success
 		header('Location: ../protected_register.php');
     } else {

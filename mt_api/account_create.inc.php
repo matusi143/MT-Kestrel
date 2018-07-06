@@ -22,10 +22,12 @@
 include("$_SERVER[DOCUMENT_ROOT]/MT-Kestrel/mt_api/config.php");
 
 
-// Connect to our DB
-$mysqli = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
+// $connect to our DB
+$connect = mysqli_connect($db_host_name, $db_user_name, $db_password, $database);
 
-$error_msg = "";
+if (mysqli_connect_errno()) {
+    die('<p>Failed to connect to MySQL, send this message to support: '.mysqli_connect_error().'</p>');
+} 
  
 if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
     //read in role and modules
@@ -55,7 +57,7 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
 
     // check existing email 	
     $prep_stmt = "SELECT USERNAME FROM members WHERE EMAIL = ? LIMIT 1";
-    $stmt = $mysqli->prepare($prep_stmt);
+    $stmt = $connect->prepare($prep_stmt);
  
     if ($stmt) {
         $stmt->bind_param('s', $email);
@@ -74,7 +76,7 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
  
     // check existing username
     $prep_stmt = "SELECT USERNAME FROM members WHERE USERNAME = ? LIMIT 1";
-    $stmt = $mysqli->prepare($prep_stmt);
+    $stmt = $connect->prepare($prep_stmt);
  
     if ($stmt) {
         $stmt->bind_param('s', $username);
@@ -113,7 +115,7 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
 		
  
         // Insert the new user into the database 
-        if ($insert_stmt = $mysqli->prepare("INSERT INTO members (USERNAME, EMAIL, PASSWORD, ROLE, MODULES) VALUES (?, ?, ?, ?, ?)")) {
+        if ($insert_stmt = $connect->prepare("INSERT INTO members (USERNAME, EMAIL, PASSWORD, ROLE, MODULES) VALUES (?, ?, ?, ?, ?)")) {
             $insert_stmt->bind_param('sssss', $username, $email, $password, $role, $modules);
             // Execute the prepared query.
             if (! $insert_stmt->execute()) {

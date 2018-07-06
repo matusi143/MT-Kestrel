@@ -22,22 +22,16 @@
 include("$_SERVER[DOCUMENT_ROOT]/MT-Kestrel/mt_api/config.php");
 include("$_SERVER[DOCUMENT_ROOT]/MT-Kestrel/mt_api/security_fucntions.php");
 
-// Connect to our DB
-$mysqli = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
+// $connect to our DB
+$connect = mysqli_connect($db_host_name, $db_user_name, $db_password, $database);
 
-// Check connection
-	if ($mysqli->connect_errno) {
-		echo "Error: Failed to make a MySQL connection, here is why: \n";
-		echo "Errno: " . $mysqli->connect_errno . "\n";
-		echo "Error: " . $mysqli->connect_error . "\n";
-		
-		// You might want to show them something nice, but we will simply exit
-		exit;
-	}
+if (mysqli_connect_errno()) {
+    die('<p>Failed to connect to MySQL, send this message to support: '.mysqli_connect_error().'</p>');
+} 
  
 sec_session_start();
  
-if (login_check($mysqli) == true) {
+if (login_check($connect) == true) {
     $logged = 'in';
 } else {
     $logged = 'out';
@@ -74,7 +68,7 @@ if (login_check($mysqli) == true) {
         </form>
  
 <?php
-    if (login_check($mysqli) == true) {
+    if (login_check($connect) == true) {
         echo '<p>Currently logged ' . $logged . ' as ' . htmlentities($_SESSION['username']) . '.</p>';
         echo '<p>Do you want to change user? <a href="includes/logout.php">Log out</a>.</p>';
     } else {

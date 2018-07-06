@@ -50,18 +50,12 @@
 	$CLERK = $_POST["CLERK"];
 	$NOTE = $_POST["NOTE"];
 
-    // Connect to our DB
-	$mysqli = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
+    // $connect to our DB
+	$connect = mysqli_connect($db_host_name, $db_user_name, $db_password, $database);
 
-    // Check connection
-	if ($mysqli->connect_errno) {
-		echo "Error: Failed to make a MySQL connection, here is why: \n";
-		echo "Errno: " . $mysqli->connect_errno . "\n";
-		echo "Error: " . $mysqli->connect_error . "\n";
-		
-		// You might want to show them something nice, but we will simply exit
-		exit;
-	}
+	if (mysqli_connect_errno()) {
+		die('<p>Failed to connect to MySQL, send this message to support: '.mysqli_connect_error().'</p>');
+	} 
 	
 	//Code to run if inventory is OK and approved.
 	if(isset($_POST["approve"])){
@@ -115,7 +109,7 @@
 		echo "</body>";
 	
 		// The script will automatically free the result and close the MySQL
-		// connection when it exits, but let's just do it anyways
+		// $connection when it exits, but let's just do it anyways
 		$mysqli->close();
 	}
 	
@@ -195,7 +189,7 @@
 		echo "</body>";
 	
 		// The script will automatically free the result and close the MySQL
-		// connection when it exits, but let's just do it anyways
+		// $connection when it exits, but let's just do it anyways
 		$mysqli->close();
 	}
 
