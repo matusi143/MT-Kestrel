@@ -43,8 +43,7 @@
 	if (!$result = $connect->query($sql)) {
     // Oh no! The query failed. 
     echo "Sorry, the website is experiencing problems.";
-	    // Again, do not do this on a public site, but we'll show you how
-    // to get the error information
+	//Check for debug mode, otherwise skip the echo of errors.
     echo "Error: Our query failed to execute and here is why: \n";
     echo "Query: " . $sql . "\n";
     echo "Errno: " . $connect->errno . "\n";

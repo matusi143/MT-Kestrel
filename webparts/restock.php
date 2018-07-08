@@ -19,7 +19,7 @@
 	see <http://www.gnu.org/licenses/>.
 -->
 <script src="js/price_helper.js"></script>
-<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/jquery-3.3.1.min.js"></script>
 
 	<h2>Restock Inventory:</h2>
 	

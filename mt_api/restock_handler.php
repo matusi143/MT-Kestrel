@@ -64,7 +64,7 @@
 	
 	// Run query to get the field that is going to be updated.
 	$sql = "SELECT * FROM `product` WHERE `UPC`=$UPC AND `LOCATION`=$LOCATION";
-	if (!$result = $mysqli->query($sql)) {
+	if (!$result = $connect->query($sql)) {
     // Oh no! The query failed. 
     echo "Sorry, the website is experiencing problems.";
 
@@ -72,24 +72,24 @@
     // to get the error information
     echo "Error: Our query failed to execute and here is why: \n";
     echo "Query: " . $sql . "\n";
-    echo "Errno: " . $mysqli->errno . "\n";
-    echo "Error: " . $mysqli->error . "\n";
+    echo "Errno: " . $connect->errno . "\n";
+    echo "Error: " . $connect->error . "\n";
     exit;
 	}
 
 	if (mysqli_num_rows($result)!=1) { 
 	$result->free();
-	$mysqli->close();
+	$connect->close();
 	die("UPC " . $UPC . " for location " . $LOCATION . " returned " . mysqli_num_rows($result) . " records and should only have one.  Contact support.");
 	} 
 	else {
 		$sql = "UPDATE `product` SET `UPC`=$UPC,`NAME`='$NAME',`DESC`='$DESC',`PRICE`=$PRICE,`LOCATION`=$LOCATION,`QTY`=$QTY,`ACTIVE`='Y',`DEPT`=$DEPT,`TAXABLE`='$TAXABLE' WHERE `UPC`=$UPC AND `LOCATION`=$LOCATION";
-		if (!$result = $mysqli->query($sql)) {
+		if (!$result = $connect->query($sql)) {
 			echo "Sorry, the website is experiencing problems.";
 			echo "Error: Our query failed to execute and here is why: \n";
 			echo "Query: " . $sql . "\n";
-			echo "Errno: " . $mysqli->errno . "\n";
-			echo "Error: " . $mysqli->error . "\n";
+			echo "Errno: " . $connect->errno . "\n";
+			echo "Error: " . $connect->error . "\n";
 			exit;
 		}
 	
@@ -108,12 +108,12 @@
                 $PRICE,
                 '$TAXABLE',
 				$DEPT)";
-		if (!$result = $mysqli->query($sql)) {
+		if (!$result = $connect->query($sql)) {
 			echo "Sorry, the website is experiencing problems.";
 			echo "Error: Our query failed to execute and here is why: \n";
 			echo "Query: " . $sql . "\n";
-			echo "Errno: " . $mysqli->errno . "\n";
-			echo "Error: " . $mysqli->error . "\n";
+			echo "Errno: " . $connect->errno . "\n";
+			echo "Error: " . $connect->error . "\n";
 			exit;
 		}
 	}
@@ -124,6 +124,6 @@
 	
 	// The script will automatically free the result and close the MySQL
 	// $connection when it exits, but let's just do it anyways
-	$mysqli->close();
+	$connect->close();
 
 ?>
