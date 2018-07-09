@@ -37,7 +37,7 @@ if (isset($_POST['email'], $_POST['p'])) {
  
     if (login($email, $password, $connect) == true) {
         // Login success
-		header('Location: ../protected_register.php');
+		header('Location: ../protected_register.php', true, 301);
     } else {
         // Login failed 
         echo "<!DOCTYPE html>";

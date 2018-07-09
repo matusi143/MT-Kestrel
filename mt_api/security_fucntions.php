@@ -104,7 +104,7 @@ function login($email, $password, $connect) {
 					$attempted_action = "login.php";
 					$UTC_TIME = date('Y-m-d G:i:s');
 					$CUR_TIME = date('Y-m-d G:i:s', strtotime(UTC_OFFSET));
-                    $mysqli->query("INSERT INTO `LOGIN_ATTEMPTS`(`USERNAME`, `TIME`, `REMOTE_ADDR`, `X_FORWARD`, `ATTEMPTED_ACTION`, `BROWSER`) VALUES ('$username', '$CUR_TIME', '$remote_addr', '$x_forward', '$attempted_action', '$user_browser')");
+                    $connect->query("INSERT INTO `LOGIN_ATTEMPTS`(`USERNAME`, `TIME`, `REMOTE_ADDR`, `X_FORWARD`, `ATTEMPTED_ACTION`, `BROWSER`) VALUES ('$username', '$CUR_TIME', '$remote_addr', '$x_forward', '$attempted_action', '$user_browser')");
 					return false;
                 }
             }
