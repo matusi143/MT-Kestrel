@@ -62,7 +62,7 @@
 	if(isset($_POST["approve"])){
 		// Run query to duplicate last txn entry as that has most up to date values
 		$sql = "INSERT INTO `txn` ( $LOCAL_TXN_TABLE ) SELECT * FROM `txn` WHERE `UPC`=$UPC AND `LOCATION`=$LOCATION ORDER BY `TXN_TIME` DESC LIMIT 1";
-		if (!$result = $mysqli->query($sql)) {
+		if (!$result = $connect->query($sql)) {
 		// Oh no! The query failed. 
 		echo "Sorry, the website is experiencing problems.";
 
@@ -70,14 +70,14 @@
 		// to get the error information
 		echo "Error: Our query failed to execute and here is why: \n";
 		echo "Query: " . $sql . "\n";
-		echo "Errno: " . $mysqli->errno . "\n";
-		echo "Error: " . $mysqli->error . "\n";
+		echo "Errno: " . $connect->errno . "\n";
+		echo "Error: " . $connect->error . "\n";
 		exit;
 		}else{echo "Ran OK.";}
 	
 		// Run query to update QTY, transaction type and user making inventory report
 		$sql = "UPDATE `txn` SET `TYPE`='INV', `QTY`=$OLD_QTY, `TXN_TIME`='$TIME', `CLERK`='$CLERK', `WHSLER`='INV', `PRICE`='$PRICE', `COST`='0.00' WHERE `UPC`=$UPC AND `LOCATION`=$LOCATION ORDER BY `TXN_TIME` DESC LIMIT 1";
-		if (!$result = $mysqli->query($sql)) {
+		if (!$result = $connect->query($sql)) {
 		// Oh no! The query failed. 
 		echo "Sorry, the website is experiencing problems.";
 
@@ -85,14 +85,14 @@
 		// to get the error information
 		echo "Error: Our query failed to execute and here is why: \n";
 		echo "Query: " . $sql . "\n";
-		echo "Errno: " . $mysqli->errno . "\n";
-		echo "Error: " . $mysqli->error . "\n";
+		echo "Errno: " . $connect->errno . "\n";
+		echo "Error: " . $connect->error . "\n";
 		exit;
 		}
 	
 		// Run query to update QTY, NAME, DESC, and PRICE in product table
 		$sql = "UPDATE `product` SET `QTY`=$OLD_QTY, `NAME`='$NAME', `DESC`='$DESC', `PRICE`='$PRICE' WHERE `UPC`=$UPC AND `LOCATION`=$LOCATION";
-		if (!$result = $mysqli->query($sql)) {
+		if (!$result = $connect->query($sql)) {
 		// Oh no! The query failed. 
 		echo "Sorry, the website is experiencing problems.";
 
@@ -100,8 +100,8 @@
 		// to get the error information
 		echo "Error: Our query failed to execute and here is why: \n";
 		echo "Query: " . $sql . "\n";
-		echo "Errno: " . $mysqli->errno . "\n";
-		echo "Error: " . $mysqli->error . "\n";
+		echo "Errno: " . $connect->errno . "\n";
+		echo "Error: " . $connect->error . "\n";
 		exit;
 		}
 
@@ -111,7 +111,7 @@
 	
 		// The script will automatically free the result and close the MySQL
 		// $connection when it exits, but let's just do it anyways
-		$mysqli->close();
+		$connect->close();
 	}
 	
 	//Code to run if inventory is OK and approved.
@@ -124,7 +124,7 @@
 		}
 		// Run query to duplicate last txn entry as that has most up to date values
 		$sql = "INSERT INTO `txn` ( $LOCAL_TXN_TABLE ) SELECT * FROM `txn` WHERE `UPC`=$UPC AND `LOCATION`=$LOCATION ORDER BY `TXN_TIME` DESC LIMIT 1";
-		if (!$result = $mysqli->query($sql)) {
+		if (!$result = $connect->query($sql)) {
 		// Oh no! The query failed. 
 		echo "Sorry, the website is experiencing problems.";
 
@@ -132,14 +132,14 @@
 		// to get the error information
 		echo "Error: Our query failed to execute and here is why: \n";
 		echo "Query: " . $sql . "\n";
-		echo "Errno: " . $mysqli->errno . "\n";
-		echo "Error: " . $mysqli->error . "\n";
+		echo "Errno: " . $connect->errno . "\n";
+		echo "Error: " . $connect->error . "\n";
 		exit;
 		}else{echo "Ran OK.";}
 	
 		// Run query to update QTY, transaction type and user making inventory report
 		$sql = "UPDATE `txn` SET `TYPE`='INV', `QTY`=$INV_QTY, `TXN_TIME`='$TIME', `CLERK`='$CLERK', `WHSLER`='INV', `PRICE`='$PRICE', `COST`='0.00' WHERE `UPC`=$UPC AND `LOCATION`=$LOCATION ORDER BY `TXN_TIME` DESC LIMIT 1";
-		if (!$result = $mysqli->query($sql)) {
+		if (!$result = $connect->query($sql)) {
 		// Oh no! The query failed. 
 		echo "Sorry, the website is experiencing problems.";
 
@@ -147,14 +147,14 @@
 		// to get the error information
 		echo "Error: Our query failed to execute and here is why: \n";
 		echo "Query: " . $sql . "\n";
-		echo "Errno: " . $mysqli->errno . "\n";
-		echo "Error: " . $mysqli->error . "\n";
+		echo "Errno: " . $connect->errno . "\n";
+		echo "Error: " . $connect->error . "\n";
 		exit;
 		}
 	
 		// Run query to update QTY, NAME, DESC, and PRICE in product table
 		$sql = "UPDATE `product` SET `QTY`=$INV_QTY, `NAME`='$NAME', `DESC`='$DESC', `PRICE`='$PRICE' WHERE `UPC`=$UPC AND `LOCATION`=$LOCATION";
-		if (!$result = $mysqli->query($sql)) {
+		if (!$result = $connect->query($sql)) {
 		// Oh no! The query failed. 
 		echo "Sorry, the website is experiencing problems.";
 
@@ -162,8 +162,8 @@
 		// to get the error information
 		echo "Error: Our query failed to execute and here is why: \n";
 		echo "Query: " . $sql . "\n";
-		echo "Errno: " . $mysqli->errno . "\n";
-		echo "Error: " . $mysqli->error . "\n";
+		echo "Errno: " . $connect->errno . "\n";
+		echo "Error: " . $connect->error . "\n";
 		exit;
 		}
 		
@@ -171,7 +171,7 @@
 		$QTY_DELTA = $OLD_QTY - $INV_QTY;
 		$RETAIL_LOSS = round($QTY_DELTA * $PRICE, 2);
 		$sql = "INSERT INTO `loss`(`UPC`, `TXN_TIME`, `QTY_DELTA`, `CLERK`, `LOCATION`, `RETAIL_LOSS`, `NOTE`) VALUES ($UPC, '$TIME', $QTY_DELTA, '$CLERK', $LOCATION, $RETAIL_LOSS, '$NOTE')";
-		if (!$result = $mysqli->query($sql)) {
+		if (!$result = $connect->query($sql)) {
 		// Oh no! The query failed. 
 		echo "Sorry, the website is experiencing problems.";
 
@@ -179,8 +179,8 @@
 		// to get the error information
 		echo "Error: Our query failed to execute and here is why: \n";
 		echo "Query: " . $sql . "\n";
-		echo "Errno: " . $mysqli->errno . "\n";
-		echo "Error: " . $mysqli->error . "\n";
+		echo "Errno: " . $connect->errno . "\n";
+		echo "Error: " . $connect->error . "\n";
 		exit;
 		}
 		
@@ -191,7 +191,7 @@
 	
 		// The script will automatically free the result and close the MySQL
 		// $connection when it exits, but let's just do it anyways
-		$mysqli->close();
+		$connect->close();
 	}
 
 ?>
