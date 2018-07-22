@@ -1,5 +1,6 @@
-<!-- 
-    Copyright 2016, 2017 Musto Technologies LLC http://www.mustotechnologies.com
+<?php
+/*
+    Copyright 2016 - 2018 Musto Technologies LLC http://www.mustotechnologies.com
 	
 	-- GPLv3 License --
 	This file is part of MT Kestrel.
@@ -17,8 +18,7 @@
     You should have received a copy of the GNU General Public License
     along with MT Kestrel as the COPYING.txt file.  If not, 
 	see <http://www.gnu.org/licenses/>.
--->
-<?php
+*/
 function sec_session_start() {
     $session_name = 'sec_session_id';   // Set a custom session name
     /*Sets the session name. 

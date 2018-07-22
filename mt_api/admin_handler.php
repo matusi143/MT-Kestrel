@@ -1,5 +1,6 @@
-<!-- 
-    Copyright 2016, 2017 Musto Technologies LLC http://www.mustotechnologies.com
+<?php
+/*
+    Copyright 2016 - 2018 Musto Technologies LLC http://www.mustotechnologies.com
 	
 	-- GPLv3 License --
 	This file is part of MT Kestrel.
@@ -17,24 +18,24 @@
     You should have received a copy of the GNU General Public License
     along with MT Kestrel as the COPYING.txt file.  If not, 
 	see <http://www.gnu.org/licenses/>.
--->
-<?php
-	//Important includes
-	include("$_SERVER[DOCUMENT_ROOT]/MT-Kestrel/mt_api/config.php");
-	date_default_timezone_set('UTC');
-	
-	// $connect to our DB
-	$connect = mysqli_connect($db_host_name, $db_user_name, $db_password, $database);
+*/
 
-	if (mysqli_connect_errno()) {
-		die('<p>Failed to connect to MySQL, send this message to support: '.mysqli_connect_error().'</p>');
-	} 
+//Important includes
+include("$_SERVER[DOCUMENT_ROOT]/MT-Kestrel/mt_api/config.php");
+date_default_timezone_set('UTC');
 	
-	// Run query to get the field that is going to be updated.
-	//$sql = "SELECT * FROM `departments` WHERE `LOCATION`=$LOCATION";
-	$sql = "SELECT * FROM `departments`";
-	if (!$result = $mysqli->query($sql)) {
-    // Oh no! The query failed. 
+// $connect to our DB
+$connect = mysqli_connect($db_host_name, $db_user_name, $db_password, $database);
+
+if (mysqli_connect_errno()) {
+	die('<p>Failed to connect to MySQL, send this message to support: '.mysqli_connect_error().'</p>');
+} 
+	
+// Run query to get the field that is going to be updated.
+//$sql = "SELECT * FROM `departments` WHERE `LOCATION`=$LOCATION";
+$sql = "SELECT * FROM `departments`";
+if (!$result = $mysqli->query($sql)) {
+	// Oh no! The query failed. 
     echo "Sorry, the website is experiencing problems.";
 
     // Again, do not do this on a public site, but we'll show you how
@@ -44,7 +45,7 @@
     echo "Errno: " . $mysqli->errno . "\n";
     echo "Error: " . $mysqli->error . "\n";
     exit;
-	}
+}
 
 echo "<table border='1' cellpadding='10'>";
 echo "<tr> <th>Department Name</th> <th>Tax Rate 1</th> <th>Tax Rate 2</th> <th></th> <th></th></tr>";

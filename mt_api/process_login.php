@@ -1,5 +1,6 @@
-<!-- 
-    Copyright 2016, 2017 Musto Technologies LLC http://www.mustotechnologies.com
+<?php
+/*
+    Copyright 2016 - 2018 Musto Technologies LLC http://www.mustotechnologies.com
 	
 	-- GPLv3 License --
 	This file is part of MT Kestrel.
@@ -17,8 +18,7 @@
     You should have received a copy of the GNU General Public License
     along with MT Kestrel as the COPYING.txt file.  If not, 
 	see <http://www.gnu.org/licenses/>.
--->
-<?php
+*/
 include("$_SERVER[DOCUMENT_ROOT]/MT-Kestrel/mt_api/config.php");
 include("$_SERVER[DOCUMENT_ROOT]/MT-Kestrel/mt_api/security_fucntions.php");
 
@@ -30,11 +30,11 @@ if (mysqli_connect_errno()) {
 } 
 
 sec_session_start(); // Our custom secure way of starting a PHP session.
- 
+
 if (isset($_POST['email'], $_POST['p'])) {
     $email = $_POST['email'];
     $password = $_POST['p']; // The hashed password.
- 
+	
     if (login($email, $password, $connect) == true) {
         // Login success
 		header('Location: ../protected_register.php', true, 301);

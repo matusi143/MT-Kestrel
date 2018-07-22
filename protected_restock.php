@@ -1,5 +1,6 @@
-<!-- 
-    Copyright 2016, 2017 Musto Technologies LLC http://www.mustotechnologies.com
+<?php
+/*
+    Copyright 2016 - 2018 Musto Technologies LLC http://www.mustotechnologies.com
 	
 	-- GPLv3 License --
 	This file is part of MT Kestrel.
@@ -17,11 +18,9 @@
     You should have received a copy of the GNU General Public License
     along with MT Kestrel as the COPYING.txt file.  If not, 
 	see <http://www.gnu.org/licenses/>.
--->
-<?php
+*/
 include("$_SERVER[DOCUMENT_ROOT]/MT-Kestrel/mt_api/config.php");
 include("$_SERVER[DOCUMENT_ROOT]/MT-Kestrel/mt_api/security_fucntions.php");
-include("$_SERVER[DOCUMENT_ROOT]/MT-Kestrel/webparts/header.php");
 
 sec_session_start();
 
@@ -33,6 +32,7 @@ if (mysqli_connect_errno()) {
 } 
 
 if(login_check($connect) == true) {
+	include("$_SERVER[DOCUMENT_ROOT]/MT-Kestrel/webparts/header.php");
     echo '<title>Restock Item - MT Salespoint</title>';
 	echo '</head>';
 	echo '<body>';
@@ -41,6 +41,7 @@ if(login_check($connect) == true) {
 	//Insert secure content here...
 	include("webparts/restock.php");
 } else {
+	include("$_SERVER[DOCUMENT_ROOT]/MT-Kestrel/webparts/header.php");
 	echo '<h2>Oops!</h2><br>';
 	echo "<span class=\"error\">You are not authorized to access this page.</span> Please <a href=\"index.php\">login</a>.";
 }

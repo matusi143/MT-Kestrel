@@ -1,5 +1,6 @@
-<!-- 
-    Copyright 2016, 2017 Musto Technologies LLC http://www.mustotechnologies.com
+<?php
+/*
+    Copyright 2016 - 2018 Musto Technologies LLC http://www.mustotechnologies.com
 	
 	-- GPLv3 License --
 	This file is part of MT Kestrel.
@@ -17,8 +18,13 @@
     You should have received a copy of the GNU General Public License
     along with MT Kestrel as the COPYING.txt file.  If not, 
 	see <http://www.gnu.org/licenses/>.
--->
-<?php
+*/
+
+// Turn on PHP Errors
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 /**
  * Database configuration
  */

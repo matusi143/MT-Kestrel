@@ -18,6 +18,4 @@
     along with MT Kestrel as the COPYING.txt file.  If not, 
 	see <http://www.gnu.org/licenses/>.
 -->
-<?php
-echo 'Current PHP version: ' . phpversion();
-?>
+<?php phpinfo(); ?>
